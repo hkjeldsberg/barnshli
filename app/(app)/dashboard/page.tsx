@@ -5,8 +5,9 @@ import { listChildren } from "@/lib/db/children";
 import { ChildCard } from "@/components/children/ChildCard";
 import { AddChildPrompt } from "@/components/children/AddChildPrompt";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
-export const metadata: Metadata = { title: "Dashboard" };
+export const metadata: Metadata = { title: "Hjem" };
 
 export default async function DashboardPage(): Promise<React.JSX.Element> {
   const supabase = await createClient();
@@ -21,7 +22,7 @@ export default async function DashboardPage(): Promise<React.JSX.Element> {
   return (
     <div>
       <h1 className="font-display text-3xl font-extrabold text-slate-800 mb-6">
-        Your children
+        Barna dine
       </h1>
 
       {children.length === 0 ? (
@@ -34,12 +35,12 @@ export default async function DashboardPage(): Promise<React.JSX.Element> {
             ))}
           </div>
           <div className="mt-6">
-            <a
+            <Link
               href="/children/new"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-semibold text-sage-600 bg-sage-100 hover:bg-sage-200 transition-colors"
             >
-              + Add another child
-            </a>
+              + Legg til barn
+            </Link>
           </div>
         </>
       )}

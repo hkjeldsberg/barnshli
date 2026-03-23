@@ -47,7 +47,7 @@ export function AddChildForm(): React.JSX.Element {
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div>
         <label htmlFor="name" className={labelClass}>
-          Child&apos;s name
+          Barnets navn
         </label>
         <input
           id="name"
@@ -55,14 +55,14 @@ export function AddChildForm(): React.JSX.Element {
           type="text"
           required
           autoComplete="off"
-          placeholder="e.g. Sofia"
+          placeholder="f.eks. Sofia"
           className={inputClass}
         />
       </div>
 
       <div>
         <label htmlFor="date_of_birth" className={labelClass}>
-          Date of birth
+          Fødselsdato
         </label>
         <input
           id="date_of_birth"
@@ -75,7 +75,7 @@ export function AddChildForm(): React.JSX.Element {
       </div>
 
       <fieldset>
-        <legend className={labelClass}>Sex</legend>
+        <legend className={labelClass}>Kjønn</legend>
         <div className="flex gap-4">
           {(["female", "male"] as const).map((sex) => (
             <label
@@ -90,7 +90,7 @@ export function AddChildForm(): React.JSX.Element {
                 className="accent-sage w-4 h-4"
                 defaultChecked={sex === "female"}
               />
-              {sex === "female" ? "Girl" : "Boy"}
+              {sex === "female" ? "Jente" : "Gutt"}
             </label>
           ))}
         </div>
@@ -103,7 +103,7 @@ export function AddChildForm(): React.JSX.Element {
       )}
 
       <Button type="submit" loading={loading}>
-        Add child
+        Legg til barn
       </Button>
     </form>
   );

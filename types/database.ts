@@ -156,6 +156,7 @@ export type Database = {
           created_at: string
           first_heard_at: string
           id: string
+          real_word: string | null
         }
         Insert: {
           base_word: string
@@ -163,6 +164,7 @@ export type Database = {
           created_at?: string
           first_heard_at?: string
           id?: string
+          real_word?: string | null
         }
         Update: {
           base_word?: string
@@ -170,6 +172,7 @@ export type Database = {
           created_at?: string
           first_heard_at?: string
           id?: string
+          real_word?: string | null
         }
         Relationships: [
           {

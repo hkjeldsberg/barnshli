@@ -97,7 +97,7 @@ export function GrowthChart({
     <div className="flex flex-col gap-4">
       {/* Tab switcher */}
       <div className="flex gap-2" role="tablist" aria-label="Growth metric">
-        {(["weight", "height"] as Tab[]).map((t) => (
+        {([["weight", "Vekt"], ["height", "Høyde"]] as [Tab, string][]).map(([t, label]) => (
           <button
             key={t}
             role="tab"
@@ -110,7 +110,7 @@ export function GrowthChart({
                 : "bg-cream-100 text-slate-600 hover:bg-cream-200",
             ].join(" ")}
           >
-            {t.charAt(0).toUpperCase() + t.slice(1)}
+            {label}
           </button>
         ))}
       </div>
@@ -128,7 +128,7 @@ export function GrowthChart({
             <XAxis
               dataKey="age"
               label={{
-                value: "Age (months)",
+                value: "Alder (måneder)",
                 position: "insideBottom",
                 offset: -20,
               }}
@@ -150,7 +150,7 @@ export function GrowthChart({
                   ? [`${Number(value).toFixed(1)} ${unit}`, name]
                   : ["-", name]
               }
-              labelFormatter={(label) => `Age: ${label} months`}
+              labelFormatter={(label) => `Alder: ${label} måneder`}
             />
             <Legend verticalAlign="top" />
 
@@ -223,8 +223,7 @@ export function GrowthChart({
           </ComposedChart>
         </ResponsiveContainer>
         <figcaption className="text-xs text-slate-400 text-center mt-1">
-          WHO reference curves: P3, P15, P50 (median), P85, P97 · Drag the
-          brush below to zoom
+          WHO referansekurver: P3, P15, P50 (median), P85, P97 · Dra børsten nedenfor for å zoome
         </figcaption>
       </figure>
     </div>

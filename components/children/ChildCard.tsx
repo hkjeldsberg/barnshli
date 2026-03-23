@@ -16,7 +16,7 @@ export function ChildCard({ child }: ChildCardProps): React.JSX.Element {
   return (
     <Link
       href={`/children/${child.id}`}
-      aria-label={`View ${child.name}'s profile — ${ageLabel}`}
+      aria-label={`Vis ${child.name}s profil — ${ageLabel}`}
       className="block min-h-[44px] group animate-fade-up"
     >
       <Card className="transition-all duration-150 group-hover:-translate-y-1 group-hover:shadow-clay-lg">
@@ -28,7 +28,7 @@ export function ChildCard({ child }: ChildCardProps): React.JSX.Element {
             <p className="mt-1 text-sm text-slate-500">{ageLabel}</p>
           </div>
           <Badge
-            label={child.sex === "male" ? "Boy" : "Girl"}
+            label={child.sex === "male" ? "Gutt" : "Jente"}
             variant={child.sex === "male" ? "male" : "female"}
           />
         </div>

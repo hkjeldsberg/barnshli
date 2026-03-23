@@ -79,7 +79,7 @@ export function AIChecklist({
     return (
       <div className="space-y-3">
         <p className="text-sm text-[var(--color-text-secondary)]">
-          No AI checklist generated yet for the <strong>{ageBand}</strong> age band.
+          Ingen AI-sjekkliste generert ennå for aldersgruppen <strong>{ageBand}</strong>.
         </p>
         {error && (
           <p role="alert" className="text-sm text-red-600">
@@ -87,10 +87,10 @@ export function AIChecklist({
           </p>
         )}
         <Button onClick={handleGenerate} loading={generating} size="sm">
-          Generate AI Checklist
+          Generer AI-sjekkliste
         </Button>
         <p className="text-xs text-[var(--color-text-secondary)]">
-          Powered by Claude AI · Based on WHO &amp; AAP guidelines
+          Drevet av Claude AI · Basert på WHO &amp; AAP retningslinjer
         </p>
       </div>
     );
@@ -104,7 +104,7 @@ export function AIChecklist({
           aria-valuenow={completedCount}
           aria-valuemin={0}
           aria-valuemax={milestones.length}
-          aria-label={`${completedCount} of ${milestones.length} milestones completed`}
+          aria-label={`${completedCount} av ${milestones.length} milepæler fullført`}
         >
           <div
             className="bg-[var(--color-sage)] h-2 rounded-full transition-all duration-300"
@@ -120,7 +120,7 @@ export function AIChecklist({
       <div className="flex items-center gap-2">
         <Badge variant="aap" label="WHO & AAP" />
         <span className="text-xs text-[var(--color-text-secondary)]">
-          AI-generated · {ageBand}
+          AI-generert · {ageBand}
         </span>
       </div>
 
@@ -139,7 +139,7 @@ export function AIChecklist({
                   : "border-gray-300 hover:border-[var(--color-sage)]"
                 }
               `}
-              aria-label={m.completed ? `Mark "${m.title}" as incomplete` : `Mark "${m.title}" as complete`}
+              aria-label={m.completed ? `Merk "${m.title}" som ikke fullført` : `Merk "${m.title}" som fullført`}
               aria-pressed={m.completed}
             >
               {m.completed && (

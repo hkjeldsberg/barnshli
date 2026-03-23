@@ -42,7 +42,7 @@ export function GrowthForm({ childId }: GrowthFormProps): React.JSX.Element {
 
     if (!response.ok) {
       const json = (await response.json()) as { error?: string };
-      setError(json.error ?? "Failed to save measurement.");
+      setError(json.error ?? "Kunne ikke lagre måling.");
       return;
     }
 
@@ -54,7 +54,7 @@ export function GrowthForm({ childId }: GrowthFormProps): React.JSX.Element {
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
       <h3 className="font-display font-bold text-slate-800">
-        Add measurement
+        Legg til måling
       </h3>
 
       {error && (
@@ -65,7 +65,7 @@ export function GrowthForm({ childId }: GrowthFormProps): React.JSX.Element {
 
       {success && (
         <div role="status" className="rounded-2xl bg-sage-100 border border-sage-200 px-4 py-3 text-sm text-sage-600">
-          Measurement saved successfully.
+          Måling lagret.
         </div>
       )}
 
@@ -73,7 +73,7 @@ export function GrowthForm({ childId }: GrowthFormProps): React.JSX.Element {
         id="recorded_at"
         name="recorded_at"
         type="date"
-        label="Date"
+        label="Dato"
         max={new Date().toISOString().split("T")[0]}
         required
       />
@@ -83,8 +83,8 @@ export function GrowthForm({ childId }: GrowthFormProps): React.JSX.Element {
           id="weight_kg"
           name="weight_kg"
           type="number"
-          label="Weight (kg)"
-          placeholder="e.g. 10.5"
+          label="Vekt (kg)"
+          placeholder="f.eks. 10.5"
           step="0.01"
           min="0.1"
           max="100"
@@ -93,19 +93,19 @@ export function GrowthForm({ childId }: GrowthFormProps): React.JSX.Element {
           id="height_cm"
           name="height_cm"
           type="number"
-          label="Height (cm)"
-          placeholder="e.g. 75.0"
+          label="Høyde (cm)"
+          placeholder="f.eks. 75.0"
           step="0.1"
           min="0.1"
           max="130"
         />
       </div>
       <p className="text-xs text-slate-400">
-        At least one of weight or height is required.
+        Minst ett av feltene vekt eller høyde må fylles inn.
       </p>
 
       <Button type="submit" loading={loading} size="sm">
-        Save measurement
+        Lagre måling
       </Button>
     </form>
   );

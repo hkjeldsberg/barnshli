@@ -45,7 +45,7 @@ export default async function AppLayout({
             type="submit"
             className="w-full text-left px-3 py-2 rounded-2xl text-sm font-semibold text-slate-500 hover:bg-cream-100 hover:text-slate-700 transition-colors"
           >
-            Sign out
+            Logg ut
           </button>
         </form>
       </aside>
@@ -65,7 +65,7 @@ export default async function AppLayout({
           className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center text-xs text-slate-600 hover:text-slate-900"
         >
           <span className="text-xl" aria-hidden="true">🏠</span>
-          <span>Home</span>
+          <span>Hjem</span>
         </Link>
         {childrenList.slice(0, 4).map((child) => (
           <Link
@@ -84,7 +84,7 @@ export default async function AppLayout({
           className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center text-xs text-sage-600"
         >
           <span className="text-xl" aria-hidden="true">+</span>
-          <span>Add</span>
+          <span>Legg til</span>
         </Link>
       </nav>
     </div>

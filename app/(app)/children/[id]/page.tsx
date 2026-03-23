@@ -35,9 +35,9 @@ export default async function ChildDetailPage({
       <ChildHeader child={child} />
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { href: `/children/${id}/growth`, label: "Growth", icon: "📈", desc: "Track weight & height" },
-          { href: `/children/${id}/words`, label: "Word Diary", icon: "💬", desc: "First words & pronunciations" },
-          { href: `/children/${id}/milestones`, label: "Milestones", icon: "⭐", desc: "Achievements & AI checklist" },
+          { href: `/children/${id}/growth`, label: "Vekst", icon: "📈", desc: "Følg vekt og høyde" },
+          { href: `/children/${id}/words`, label: "Ordbok", icon: "💬", desc: "Første ord og uttaler" },
+          { href: `/children/${id}/milestones`, label: "Milepæler", icon: "⭐", desc: "Bragder og AI-sjekkliste" },
         ].map((item) => (
           <Link
             key={item.href}

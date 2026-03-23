@@ -18,11 +18,11 @@ export function ChildHeader({ child }: ChildHeaderProps): React.JSX.Element {
           {child.name}
         </h1>
         <Badge
-          label={child.sex === "male" ? "Boy" : "Girl"}
+          label={child.sex === "male" ? "Gutt" : "Jente"}
           variant={child.sex === "male" ? "male" : "female"}
         />
       </div>
-      <p className="text-sm text-slate-500">{ageLabel} old</p>
+      <p className="text-sm text-slate-500">{ageLabel} gammel</p>
     </div>
   );
 }

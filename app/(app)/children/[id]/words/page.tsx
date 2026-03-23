@@ -15,9 +15,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { title: "Word Diary" };
+  if (!user) return { title: "Ordbok" };
   const child = await getChild(id, user.id);
-  return { title: child ? `${child.name} — Word Diary` : "Word Diary" };
+  return { title: child ? `${child.name} — Ordbok` : "Ordbok" };
 }
 
 export default async function WordsPage({ params }: Props): Promise<React.JSX.Element> {
@@ -36,9 +36,9 @@ export default async function WordsPage({ params }: Props): Promise<React.JSX.El
       <ChildHeader child={child} />
 
       <div className="clay-card p-6">
-        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">Word Diary</h2>
+        <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">Ordbok</h2>
         <p className="text-sm text-[var(--color-text-secondary)] mb-6">
-          Track every word your child learns and how their pronunciation evolves over time.
+          Følg hvert ord barnet lærer og hvordan uttalen utvikler seg over tid.
         </p>
         <WordDiary childId={id} initialEntries={entries} />
       </div>

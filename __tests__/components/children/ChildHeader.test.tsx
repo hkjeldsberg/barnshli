@@ -35,17 +35,17 @@ describe("ChildHeader", () => {
 
   it("renders the age label", () => {
     render(<ChildHeader child={makeChild()} />);
-    expect(screen.getByText(/1 year old/i)).toBeInTheDocument();
+    expect(screen.getByText(/1 år gammel/i)).toBeInTheDocument();
   });
 
-  it("shows 'Girl' badge for female", () => {
+  it("shows 'Jente' badge for female", () => {
     render(<ChildHeader child={makeChild()} />);
-    expect(screen.getByText("Girl")).toBeInTheDocument();
+    expect(screen.getByText("Jente")).toBeInTheDocument();
   });
 
-  it("shows 'Boy' badge for male", () => {
+  it("shows 'Gutt' badge for male", () => {
     render(<ChildHeader child={makeChild({ sex: "male", name: "Erik" })} />);
-    expect(screen.getByText("Boy")).toBeInTheDocument();
+    expect(screen.getByText("Gutt")).toBeInTheDocument();
   });
 
   it("does not render tab navigation (tabs moved to sidebar)", () => {

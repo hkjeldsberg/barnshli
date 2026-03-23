@@ -25,7 +25,6 @@ describe("calculateAgeMonths", () => {
   });
 
   it("adjusts for day-of-month (birthday not yet reached this month)", () => {
-    // Today is 2026-03-23, born on 2025-09-30 → only 5 full months have elapsed
     expect(calculateAgeMonths(new Date("2025-09-30"))).toBe(5);
   });
 
@@ -35,35 +34,35 @@ describe("calculateAgeMonths", () => {
 });
 
 describe("formatAge", () => {
-  it("returns 'Newborn' for negative months", () => {
-    expect(formatAge(-1)).toBe("Newborn");
+  it("returns 'Nyfødt' for negative months", () => {
+    expect(formatAge(-1)).toBe("Nyfødt");
   });
 
-  it("returns 'Less than 1 month' for 0 months", () => {
-    expect(formatAge(0)).toBe("Less than 1 month");
+  it("returns 'Mindre enn 1 måned' for 0 months", () => {
+    expect(formatAge(0)).toBe("Mindre enn 1 måned");
   });
 
-  it("returns singular 'month' for 1 month", () => {
-    expect(formatAge(1)).toBe("1 month");
+  it("returns singular 'måned' for 1 month", () => {
+    expect(formatAge(1)).toBe("1 måned");
   });
 
-  it("returns plural 'months' for 2–11 months", () => {
-    expect(formatAge(6)).toBe("6 months");
-    expect(formatAge(11)).toBe("11 months");
+  it("returns plural 'måneder' for 2–11 months", () => {
+    expect(formatAge(6)).toBe("6 måneder");
+    expect(formatAge(11)).toBe("11 måneder");
   });
 
-  it("returns '1 year' exactly at 12 months", () => {
-    expect(formatAge(12)).toBe("1 year");
+  it("returns '1 år' exactly at 12 months", () => {
+    expect(formatAge(12)).toBe("1 år");
   });
 
   it("returns plural years at 24 months", () => {
-    expect(formatAge(24)).toBe("2 years");
+    expect(formatAge(24)).toBe("2 år");
   });
 
   it("returns years and months when remainder exists", () => {
-    expect(formatAge(13)).toBe("1 year, 1 month");
-    expect(formatAge(14)).toBe("1 year, 2 months");
-    expect(formatAge(25)).toBe("2 years, 1 month");
+    expect(formatAge(13)).toBe("1 år og 1 måned");
+    expect(formatAge(14)).toBe("1 år og 2 måneder");
+    expect(formatAge(25)).toBe("2 år og 1 måned");
   });
 });
 

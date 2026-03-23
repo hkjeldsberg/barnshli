@@ -17,9 +17,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { title: "Milestones" };
+  if (!user) return { title: "Milepæler" };
   const child = await getChild(id, user.id);
-  return { title: child ? `${child.name} — Milestones` : "Milestones" };
+  return { title: child ? `${child.name} — Milepæler` : "Milepæler" };
 }
 
 export default async function MilestonesPage({ params }: Props): Promise<React.JSX.Element> {
@@ -46,10 +46,10 @@ export default async function MilestonesPage({ params }: Props): Promise<React.J
         {ageBand && (
           <div className="clay-card p-6">
             <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
-              AI Developmental Checklist
+              AI-sjekkliste for utvikling
             </h2>
             <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              AI-generated milestones for the {ageBand} age band, based on WHO and AAP guidelines.
+              AI-genererte milepæler for aldersgruppen {ageBand}, basert på WHO og AAP retningslinjer.
             </p>
             <AIChecklist
               childId={id}
@@ -61,12 +61,16 @@ export default async function MilestonesPage({ params }: Props): Promise<React.J
 
         <div className="clay-card p-6">
           <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
-            My Milestones
+            Mine milepæler
           </h2>
           <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-            Record your own special milestones and achievements.
+            Registrer barnets egne spesielle øyeblikk og bragder.
           </p>
-          <MilestoneTimeline childId={id} initialMilestones={allMilestones} />
+          <MilestoneTimeline
+            childId={id}
+            dateOfBirth={child.date_of_birth}
+            initialMilestones={allMilestones}
+          />
         </div>
       </div>
     </div>

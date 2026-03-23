@@ -63,6 +63,24 @@ export async function toggleMilestone(
   return data;
 }
 
+export async function updateMilestone(
+  milestoneId: string,
+  childId: string,
+  data: { title?: string; achieved_at?: string; age_band?: string },
+): Promise<Milestone> {
+  const supabase = await createClient();
+  const { data: milestone, error } = await supabase
+    .from("milestones")
+    .update(data)
+    .eq("id", milestoneId)
+    .eq("child_id", childId)
+    .select()
+    .single();
+
+  if (error) throw new Error(`Failed to update milestone: ${error.message}`);
+  return milestone;
+}
+
 export async function deleteMilestone(
   milestoneId: string,
   childId: string,

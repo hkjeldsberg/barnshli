@@ -6,10 +6,10 @@ import { useParams, usePathname } from "next/navigation";
 import type { Child } from "@/lib/db/children";
 
 const CHILD_TABS = [
-  { label: "Overview", href: "" },
-  { label: "Growth", href: "/growth" },
-  { label: "Words", href: "/words" },
-  { label: "Milestones", href: "/milestones" },
+  { label: "Oversikt", href: "" },
+  { label: "Vekst", href: "/growth" },
+  { label: "Ordbok", href: "/words" },
+  { label: "Milepæler", href: "/milestones" },
 ];
 
 interface SidebarNavProps {
@@ -20,9 +20,6 @@ export function SidebarNav({ childrenList }: SidebarNavProps): React.JSX.Element
   const params = useParams();
   const pathname = usePathname();
   const activeChildId = params?.id as string | undefined;
-  const activeChild = activeChildId
-    ? childrenList.find((c) => c.id === activeChildId)
-    : null;
 
   return (
     <nav
@@ -31,7 +28,7 @@ export function SidebarNav({ childrenList }: SidebarNavProps): React.JSX.Element
     >
       {childrenList.length > 0 && (
         <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-3 pt-1 pb-1">
-          Children
+          Barn
         </p>
       )}
 
@@ -91,7 +88,7 @@ export function SidebarNav({ childrenList }: SidebarNavProps): React.JSX.Element
         <span aria-hidden="true" className="text-lg font-bold">
           +
         </span>
-        Add child
+        Legg til barn
       </Link>
     </nav>
   );

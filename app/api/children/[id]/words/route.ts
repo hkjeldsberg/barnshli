@@ -31,7 +31,11 @@ export async function POST(
 
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const body = (await request.json()) as { base_word?: unknown; first_heard_at?: unknown };
+  const body = (await request.json()) as {
+    base_word?: unknown;
+    first_heard_at?: unknown;
+    real_word?: unknown;
+  };
 
   const wordVal = validateTextLength(String(body.base_word ?? ""), 1, 200);
   if (!wordVal.valid) return NextResponse.json({ error: wordVal.error }, { status: 400 });
@@ -39,9 +43,17 @@ export async function POST(
   const dateVal = validateDateNotFuture(String(body.first_heard_at ?? ""));
   if (!dateVal.valid) return NextResponse.json({ error: dateVal.error }, { status: 400 });
 
+  const realWord =
+    body.real_word === undefined || body.real_word === "" ? null : String(body.real_word);
+  if (realWord !== null) {
+    const rwVal = validateTextLength(realWord, 1, 200);
+    if (!rwVal.valid) return NextResponse.json({ error: rwVal.error }, { status: 400 });
+  }
+
   const entry = await createWordEntry(id, {
     base_word: String(body.base_word),
     first_heard_at: String(body.first_heard_at),
+    real_word: realWord,
   });
 
   return NextResponse.json(entry, { status: 201 });

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Tables, InsertTables } from "@/types/database";
+import type { Tables, InsertTables, UpdateTables } from "@/types/database";
 
 export type WordEntry = Tables<"word_entries">;
 export type WordVariant = Tables<"word_variants">;
@@ -31,7 +31,7 @@ export async function listWordEntries(
 
 export async function createWordEntry(
   childId: string,
-  data: Pick<InsertTables<"word_entries">, "base_word" | "first_heard_at">,
+  data: Pick<InsertTables<"word_entries">, "base_word" | "first_heard_at" | "real_word">,
 ): Promise<WordEntry> {
   const supabase = await createClient();
   const { data: entry, error } = await supabase
@@ -41,6 +41,24 @@ export async function createWordEntry(
     .single();
 
   if (error) throw new Error(`Failed to create word entry: ${error.message}`);
+  return entry;
+}
+
+export async function updateWordEntry(
+  wordEntryId: string,
+  childId: string,
+  data: Pick<UpdateTables<"word_entries">, "base_word" | "first_heard_at" | "real_word">,
+): Promise<WordEntry> {
+  const supabase = await createClient();
+  const { data: entry, error } = await supabase
+    .from("word_entries")
+    .update(data)
+    .eq("id", wordEntryId)
+    .eq("child_id", childId)
+    .select()
+    .single();
+
+  if (error) throw new Error(`Failed to update word entry: ${error.message}`);
   return entry;
 }
 
@@ -70,5 +88,21 @@ export async function addWordVariant(
     .single();
 
   if (error) throw new Error(`Failed to add word variant: ${error.message}`);
+  return variant;
+}
+
+export async function updateWordVariant(
+  variantId: string,
+  data: Pick<UpdateTables<"word_variants">, "recorded_at">,
+): Promise<WordVariant> {
+  const supabase = await createClient();
+  const { data: variant, error } = await supabase
+    .from("word_variants")
+    .update(data)
+    .eq("id", variantId)
+    .select()
+    .single();
+
+  if (error) throw new Error(`Failed to update word variant: ${error.message}`);
   return variant;
 }
