@@ -42,6 +42,13 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   const isApiRoute = pathname.startsWith("/api");
   const isApiAuth = pathname.startsWith("/api/auth");
 
+  // Redirect root to dashboard (authenticated) or login (unauthenticated)
+  if (pathname === "/") {
+    const target = request.nextUrl.clone();
+    target.pathname = user ? "/dashboard" : "/login";
+    return NextResponse.redirect(target);
+  }
+
   if (isProtected && !user) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
