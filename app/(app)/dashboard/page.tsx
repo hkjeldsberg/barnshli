@@ -27,11 +27,21 @@ export default async function DashboardPage(): Promise<React.JSX.Element> {
       {children.length === 0 ? (
         <AddChildPrompt />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {children.map((child) => (
-            <ChildCard key={child.id} child={child} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {children.map((child) => (
+              <ChildCard key={child.id} child={child} />
+            ))}
+          </div>
+          <div className="mt-6">
+            <a
+              href="/children/new"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-semibold text-sage-600 bg-sage-100 hover:bg-sage-200 transition-colors"
+            >
+              + Add another child
+            </a>
+          </div>
+        </>
       )}
     </div>
   );

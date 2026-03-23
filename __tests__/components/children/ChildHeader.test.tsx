@@ -48,27 +48,8 @@ describe("ChildHeader", () => {
     expect(screen.getByText("Boy")).toBeInTheDocument();
   });
 
-  it("renders navigation tabs", () => {
+  it("does not render tab navigation (tabs moved to sidebar)", () => {
     render(<ChildHeader child={makeChild()} />);
-    const nav = screen.getByRole("navigation", { name: /child section navigation/i });
-    expect(nav).toBeInTheDocument();
-  });
-
-  it("renders links for each tab with correct hrefs", () => {
-    render(<ChildHeader child={makeChild()} />);
-    const links = screen.getAllByRole("link");
-    const hrefs = links.map((l) => l.getAttribute("href"));
-    expect(hrefs).toContain("/children/child-1");
-    expect(hrefs).toContain("/children/child-1/growth");
-    expect(hrefs).toContain("/children/child-1/words");
-    expect(hrefs).toContain("/children/child-1/milestones");
-  });
-
-  it("renders all four tab labels", () => {
-    render(<ChildHeader child={makeChild()} />);
-    expect(screen.getByText("Overview")).toBeInTheDocument();
-    expect(screen.getByText("Growth")).toBeInTheDocument();
-    expect(screen.getByText("Words")).toBeInTheDocument();
-    expect(screen.getByText("Milestones")).toBeInTheDocument();
+    expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
   });
 });

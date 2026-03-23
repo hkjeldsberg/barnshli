@@ -27,12 +27,12 @@ async function buildWHOSeries(sex: "male" | "female"): Promise<{
   weight: WHOChartSeries;
   height: WHOChartSeries;
 }> {
-  const [wBoys, hBoys] = await Promise.all([
+  const [weightData, heightData] = await Promise.all([
     loadWHODataset("weight", sex),
     loadWHODataset("height", sex),
   ]);
 
-  const toSeries = (data: typeof wBoys): WHOChartSeries => ({
+  const toSeries = (data: typeof weightData): WHOChartSeries => ({
     p3: getPercentileSeries(data, 3),
     p15: getPercentileSeries(data, 15),
     p50: getPercentileSeries(data, 50),
@@ -40,7 +40,7 @@ async function buildWHOSeries(sex: "male" | "female"): Promise<{
     p97: getPercentileSeries(data, 97),
   });
 
-  return { weight: toSeries(wBoys), height: toSeries(hBoys) };
+  return { weight: toSeries(weightData), height: toSeries(heightData) };
 }
 
 export default async function GrowthPage({
@@ -69,6 +69,7 @@ export default async function GrowthPage({
           whoWeight={whoWeight}
           whoHeight={whoHeight}
           childName={child.name}
+          dateOfBirth={child.date_of_birth}
         />
       </div>
 
