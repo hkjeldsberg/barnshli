@@ -1,0 +1,100 @@
+"use client";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+
+export function LoginForm(): React.JSX.Element {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(
+    event: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> {
+    event.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    const supabase = createClient();
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (authError) {
+      setError("Incorrect email or password. Please try again.");
+      return;
+    }
+
+    router.push("/dashboard");
+    router.refresh();
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+      <div>
+        <h2 className="font-display text-xl font-bold text-slate-800">
+          Welcome back
+        </h2>
+        <p className="mt-1 text-sm text-slate-500">
+          Sign in to your Barnshli account.
+        </p>
+      </div>
+
+      {error && (
+        <div role="alert" className="rounded-2xl bg-dusty-rose-100 border border-dusty-rose-300 px-4 py-3 text-sm text-dusty-rose-700">
+          {error}
+        </div>
+      )}
+
+      <Input
+        id="email"
+        name="email"
+        type="email"
+        label="Email address"
+        placeholder="you@example.com"
+        autoComplete="email"
+        required
+      />
+
+      <Input
+        id="password"
+        name="password"
+        type="password"
+        label="Password"
+        placeholder="Your password"
+        autoComplete="current-password"
+        required
+      />
+
+      <div className="text-right">
+        <a
+          href="/reset-password"
+          className="text-sm text-sage-600 hover:underline font-semibold"
+        >
+          Forgot password?
+        </a>
+      </div>
+
+      <Button type="submit" loading={loading} className="w-full">
+        Sign in
+      </Button>
+
+      <p className="text-center text-sm text-slate-500">
+        Don&apos;t have an account?{" "}
+        <a href="/register" className="font-semibold text-sage-600 hover:underline">
+          Create one
+        </a>
+      </p>
+    </form>
+  );
+}

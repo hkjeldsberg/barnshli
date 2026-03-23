@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@theme {
+  --font-display: "Nunito", ui-rounded, system-ui, sans-serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Cream palette */
+  --color-cream-50: #FDFBF7;
+  --color-cream-100: #F5F0E8;
+  --color-cream-200: #EDE5D4;
+  --color-cream: #F5F0E8;
+
+  /* Sage palette */
+  --color-sage-100: #D4E4D4;
+  --color-sage-200: #B8CEB8;
+  --color-sage-400: #8FAF8F;
+  --color-sage-600: #5F8A5F;
+  --color-sage: #8FAF8F;
+
+  /* Dusty rose palette */
+  --color-dusty-rose-100: #F0D8D6;
+  --color-dusty-rose-300: #D9ADAA;
+  --color-dusty-rose-500: #C9908C;
+  --color-dusty-rose-700: #A06B67;
+  --color-dusty-rose: #C9908C;
+
+  /* Sky blue palette */
+  --color-sky-blue-100: #D6E8F5;
+  --color-sky-blue-200: #B8D4EB;
+  --color-sky-blue-400: #9BBFD9;
+  --color-sky-blue-600: #6A9BBF;
+  --color-sky-blue: #9BBFD9;
+
+  /* Peach palette */
+  --color-peach-100: #F9E8D8;
+  --color-peach-300: #F0CEAE;
+  --color-peach-500: #E8B89A;
+  --color-peach-700: #C99070;
+  --color-peach: #E8B89A;
+
+  /* Clay shadows */
+  --shadow-clay-sm: 0 2px 0 0 rgba(0,0,0,0.12), 0 4px 10px rgba(0,0,0,0.08);
+  --shadow-clay-md: 0 4px 0 0 rgba(0,0,0,0.14), 0 8px 20px rgba(0,0,0,0.10);
+  --shadow-clay-lg: 0 6px 0 0 rgba(0,0,0,0.16), 0 12px 30px rgba(0,0,0,0.12);
+
+  /* Extra border radius */
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+
+  /* Animations */
+  --animate-fade-up: fade-up 200ms ease-out;
+  --animate-scale-in: scale-in 150ms ease-out;
+}
+
+@layer base {
+  html {
+    @apply bg-cream text-slate-800 font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-bold;
+  }
+
+  /* Ensure focus rings are visible for keyboard navigation */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-sky-blue-600;
+  }
+}
+
+@layer components {
+  /* Claymorphism card base */
+  .clay-card {
+    @apply rounded-3xl shadow-clay-md bg-cream-50 border border-cream-200;
+  }
+
+  .clay-card-sm {
+    @apply rounded-2xl shadow-clay-sm bg-cream-50 border border-cream-200;
+  }
+}

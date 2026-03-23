@@ -1,0 +1,38 @@
+import type { Metadata } from "next";
+import React from "react";
+import { createClient } from "@/lib/supabase/server";
+import { listChildren } from "@/lib/db/children";
+import { ChildCard } from "@/components/children/ChildCard";
+import { AddChildPrompt } from "@/components/children/AddChildPrompt";
+import { redirect } from "next/navigation";
+
+export const metadata: Metadata = { title: "Dashboard" };
+
+export default async function DashboardPage(): Promise<React.JSX.Element> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const children = await listChildren(user.id);
+
+  return (
+    <div>
+      <h1 className="font-display text-3xl font-extrabold text-slate-800 mb-6">
+        Your children
+      </h1>
+
+      {children.length === 0 ? (
+        <AddChildPrompt />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {children.map((child) => (
+            <ChildCard key={child.id} child={child} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
