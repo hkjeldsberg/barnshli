@@ -36,7 +36,7 @@ export function RegisterForm(): React.JSX.Element {
     if (authError) {
       if (authError.message.toLowerCase().includes("already registered")) {
         setError(
-          "An account with this email already exists. Try signing in instead.",
+          "En konto med denne e-postadressen finnes allerede. Prøv å logge inn i stedet.",
         );
       } else {
         setError(authError.message);
@@ -51,10 +51,10 @@ export function RegisterForm(): React.JSX.Element {
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       <div>
         <h2 className="font-display text-xl font-bold text-slate-800">
-          Create your account
+          Opprett konto
         </h2>
         <p className="mt-1 text-sm text-slate-500">
-          Your family&apos;s data stays private and secure.
+          Familiens data holdes privat og trygg.
         </p>
       </div>
 
@@ -68,8 +68,8 @@ export function RegisterForm(): React.JSX.Element {
         id="email"
         name="email"
         type="email"
-        label="Email address"
-        placeholder="you@example.com"
+        label="E-postadresse"
+        placeholder="deg@eksempel.no"
         autoComplete="email"
         required
       />
@@ -78,21 +78,21 @@ export function RegisterForm(): React.JSX.Element {
         id="password"
         name="password"
         type="password"
-        label="Password"
-        placeholder="At least 8 characters"
+        label="Passord"
+        placeholder="Minst 8 tegn"
         autoComplete="new-password"
         minLength={8}
         required
       />
 
       <Button type="submit" loading={loading} className="w-full">
-        Create account
+        Opprett konto
       </Button>
 
       <p className="text-center text-sm text-slate-500">
-        Already have an account?{" "}
+        Har du allerede konto?{" "}
         <a href="/login" className="font-semibold text-sage-600 hover:underline">
-          Sign in
+          Logg inn
         </a>
       </p>
     </form>

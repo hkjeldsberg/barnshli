@@ -137,19 +137,22 @@ its progression in the word diary, without any other feature being active.
 
 A parent records custom milestones their child has reached — with date, title,
 optional description/comment, and optional location. Logged milestones appear in a
-chronological timeline on the child's page.
+chronological timeline on a **dedicated "Mine milepæler" page** (separate from the
+AI checklist).
 
 **Why this priority**: Custom milestones capture the personal narrative of each child's
 development and give the platform emotional depth; they complement the AI-generated
-checklist.
+checklist. Separating the two views reduces cognitive load and allows each to grow
+independently.
 
 **Independent Test**: A parent can create a milestone entry with all fields and see it
-appear in the child's timeline, with no AI features needed.
+appear in the child's "Mine milepæler" timeline, with no AI features needed.
 
 **Acceptance Scenarios**:
 
-1. **Given** a parent is on the milestone log page, **When** they save a milestone with
-   a title and date, **Then** the milestone appears in the child's timeline.
+1. **Given** a parent navigates to the "Mine milepæler" sub-page, **When** they save a
+   milestone with a title and date, **Then** the milestone appears in the child's
+   timeline.
 2. **Given** a parent adds an optional location to a milestone, **When** viewed in the
    timeline, **Then** the location is displayed alongside the other details.
 3. **Given** multiple milestones exist, **When** the timeline is displayed, **Then**
@@ -161,21 +164,29 @@ appear in the child's timeline, with no AI features needed.
 
 The platform generates an age-appropriate milestone checklist for each child based on
 their current age, using Claude AI drawing on WHO, CDC, and AAP developmental
-guidelines. Parents can check off milestones as their child achieves them, and the
-checked state is persisted.
+guidelines. This checklist lives on a **dedicated "AI-sjekkliste" page** (separate from
+custom milestones). Parents can check off milestones as their child achieves them.
 
-**Why this priority**: This is the AI-powered differentiator of the platform; it
-transforms a manual tracker into an intelligent developmental guide.
+In addition, once all AI-generated milestones are reached (or at any time), a parent
+can add **extra age-appropriate challenges** directly on the AI checklist page. These
+user-added challenges appear in a separate "Ekstra utfordringer" section below the
+AI checklist, offering further developmental stimulation tailored to the child's age band.
 
-**Independent Test**: For a child aged 18 months, the system generates a checklist of
-developmental milestones, the parent can check one item, and the checked state
-persists on reload.
+**Why this priority**: This is the AI-powered differentiator of the platform. Splitting
+AI checklist and custom milestones into separate pages removes confusion between
+structured developmental guidance and personal diary entries. The extra challenges
+feature addresses the scenario where all AI milestones are completed and the parent
+wants continued developmental engagement.
+
+**Independent Test**: For a child aged 18 months, the system generates a checklist,
+the parent checks one item (persisted on reload), and the parent adds one extra
+challenge that appears in the "Ekstra utfordringer" section.
 
 **Acceptance Scenarios**:
 
-1. **Given** a child has a known date of birth, **When** the parent views the milestone
-   checklist, **Then** an AI-generated list of age-appropriate milestones is displayed,
-   each citing a source (WHO, CDC, or AAP).
+1. **Given** a child has a known date of birth, **When** the parent views the
+   AI-sjekkliste page, **Then** an AI-generated list of age-appropriate milestones is
+   displayed, each citing a source (WHO, CDC, or AAP).
 2. **Given** a checklist is displayed, **When** the parent checks a milestone,
    **Then** the item is visually distinguished as achieved and the state is persisted.
 3. **Given** a child's age crosses a new developmental stage, **When** the parent
@@ -183,6 +194,11 @@ persists on reload.
 4. **Given** the AI service is temporarily unavailable, **When** the parent requests
    the checklist, **Then** a friendly error message explains the situation and prompts
    them to try again later.
+5. **Given** a parent is on the AI-sjekkliste page, **When** they submit a challenge
+   title via the "Legg til ekstra utfordring" form, **Then** the challenge appears in
+   the "Ekstra utfordringer" section below the AI checklist with a checkable state.
+6. **Given** an extra challenge exists, **When** the parent checks it off, **Then** the
+   checked state is persisted and the item is visually distinguished as completed.
 
 ---
 
@@ -251,15 +267,30 @@ persists on reload.
 
 - **FR-018**: Users MUST be able to log a custom milestone with: title (required),
   date (required), description/comment (optional), and location (optional).
-- **FR-019**: System MUST display custom milestones in a chronological timeline per
-  child.
+- **FR-019**: System MUST display custom milestones in a chronological timeline on a
+  dedicated "Mine milepæler" page (`/children/[id]/milestones/custom`), separate from
+  the AI checklist.
 - **FR-020**: System MUST generate an AI-powered developmental milestone checklist for
-  each child, appropriate to their current age, citing WHO, CDC, or AAP sources.
+  each child, appropriate to their current age, citing WHO, CDC, or AAP sources. The
+  checklist MUST be displayed on a dedicated "AI-sjekkliste" page
+  (`/children/[id]/milestones/ai`).
 - **FR-021**: Users MUST be able to check off individual AI-generated milestone items.
 - **FR-022**: System MUST persist the checked/unchecked state of AI-generated
   milestones per child.
 - **FR-023**: System MUST surface a friendly error if the AI checklist generation
   fails, without crashing the page.
+- **FR-024-ext**: Users MUST be able to add extra age-appropriate challenges on the
+  AI-sjekkliste page via a "Legg til ekstra utfordring" form. These challenges are
+  stored with `source = 'user'` and displayed in an "Ekstra utfordringer" section
+  below the AI-generated list.
+- **FR-025-ext**: Extra user-added challenges MUST support the same check/uncheck
+  toggle and persisted state as AI-generated items.
+
+**Localisation**
+
+- **FR-026**: The login page and all auth pages (login, register, reset-password)
+  MUST be fully translated to Norwegian (Bokmål). No English-language strings are
+  permitted in the auth UI.
 
 **Data & Privacy**
 
@@ -323,7 +354,8 @@ persists on reload.
   this release.
 - The platform is a web application (responsive, mobile-first); native mobile apps
   are out of scope.
-- Multi-language / i18n support is out of scope for this release; English only.
+- The UI language is Norwegian (Bokmål) throughout. Formal i18n/multi-language
+  infrastructure is out of scope; all user-facing strings are hard-coded in Norwegian.
 - Photo or media uploads for milestones are out of scope for this release.
 
 ## Out of Scope
@@ -334,4 +366,4 @@ persists on reload.
 - Pediatrician or healthcare-provider access
 - Push notifications
 - Photo or video attachments
-- Multi-language support
+- Multi-language / i18n infrastructure (app is Norwegian-only by convention)

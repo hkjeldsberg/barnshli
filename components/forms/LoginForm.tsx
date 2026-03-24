@@ -31,7 +31,7 @@ export function LoginForm(): React.JSX.Element {
     setLoading(false);
 
     if (authError) {
-      setError("Incorrect email or password. Please try again.");
+      setError("Feil e-post eller passord. Vennligst prøv igjen.");
       return;
     }
 
@@ -43,10 +43,10 @@ export function LoginForm(): React.JSX.Element {
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       <div>
         <h2 className="font-display text-xl font-bold text-slate-800">
-          Welcome back
+          Velkommen tilbake
         </h2>
         <p className="mt-1 text-sm text-slate-500">
-          Sign in to your Barnshli account.
+          Logg inn på din Barnshli-konto.
         </p>
       </div>
 
@@ -60,8 +60,8 @@ export function LoginForm(): React.JSX.Element {
         id="email"
         name="email"
         type="email"
-        label="Email address"
-        placeholder="you@example.com"
+        label="E-postadresse"
+        placeholder="deg@eksempel.no"
         autoComplete="email"
         required
       />
@@ -70,8 +70,8 @@ export function LoginForm(): React.JSX.Element {
         id="password"
         name="password"
         type="password"
-        label="Password"
-        placeholder="Your password"
+        label="Passord"
+        placeholder="Ditt passord"
         autoComplete="current-password"
         required
       />
@@ -81,18 +81,18 @@ export function LoginForm(): React.JSX.Element {
           href="/reset-password"
           className="text-sm text-sage-600 hover:underline font-semibold"
         >
-          Forgot password?
+          Glemt passordet?
         </a>
       </div>
 
       <Button type="submit" loading={loading} className="w-full">
-        Sign in
+        Logg inn
       </Button>
 
       <p className="text-center text-sm text-slate-500">
-        Don&apos;t have an account?{" "}
+        Har du ikke konto?{" "}
         <a href="/register" className="font-semibold text-sage-600 hover:underline">
-          Create one
+          Opprett en
         </a>
       </p>
     </form>

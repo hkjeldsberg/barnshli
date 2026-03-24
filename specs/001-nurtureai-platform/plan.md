@@ -48,6 +48,14 @@ Postgres behind Supabase Auth, deployed on Vercel.
 Recharts client component is properly isolated behind `dynamic()` — Principle II upheld.
 AI prompts stored in `lib/ai/prompts/milestones.ts` — Principle V upheld.
 
+*Plan update 2026-03-23 (split milestone pages + user challenges + login i18n)*:
+- Milestone split into `milestones/ai/` and `milestones/custom/` sub-routes — no new
+  files exceed 300 lines; both pages remain Server Components — Principles I & II upheld.
+- User-added challenges reuse the existing `milestones` table via `source = 'user'`
+  discriminator — no schema migration required; no new third-party dependency — Principle I upheld.
+- Login page Norwegian translation is a pure string change in `LoginForm.tsx` and
+  `login/page.tsx` metadata — no architectural impact.
+
 ## Project Structure
 
 ### Documentation (this feature)
@@ -90,7 +98,11 @@ app/
 │           ├── words/
 │           │   └── page.tsx    # Word diary
 │           └── milestones/
-│               └── page.tsx    # Custom log + AI checklist
+│               ├── page.tsx        # Redirect → milestones/ai
+│               ├── ai/
+│               │   └── page.tsx    # AI checklist + extra challenges
+│               └── custom/
+│                   └── page.tsx    # Custom milestone timeline
 ├── api/
 │   ├── children/
 │   │   ├── route.ts                              # GET (list), POST (create)
@@ -119,7 +131,8 @@ components/
 ├── ui/                   # Button, Input, Card, Badge, Label, etc.
 ├── forms/                # ChildForm, GrowthForm, WordForm, MilestoneForm
 ├── charts/               # GrowthChart.tsx (client, lazy-loaded)
-└── children/             # ChildCard, ChildHeader, MilestoneTimeline, etc.
+└── children/             # ChildCard, ChildHeader, MilestoneTimeline, AIChecklist,
+                          # ExtraChallengesSection, MilestoneSubNav, etc.
 
 lib/
 ├── ai/

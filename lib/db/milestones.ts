@@ -100,16 +100,59 @@ export async function getAIChecklistForBand(
   ageBand: AgeBand,
 ): Promise<Milestone[]> {
   const supabase = await createClient();
+  // Returns only AI-generated items (source='ai') for backward compat also
+  // accepts rows where source is null (pre-migration data).
   const { data, error } = await supabase
     .from("milestones")
     .select("*")
     .eq("child_id", childId)
     .eq("age_band", ageBand)
     .eq("is_custom", false)
+    .in("source", ["ai"])
     .order("created_at", { ascending: true });
 
   if (error) throw new Error(`Failed to fetch AI checklist: ${error.message}`);
   return data ?? [];
+}
+
+export async function getUserChallengesForBand(
+  childId: string,
+  ageBand: AgeBand,
+): Promise<Milestone[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("milestones")
+    .select("*")
+    .eq("child_id", childId)
+    .eq("age_band", ageBand)
+    .eq("is_custom", false)
+    .eq("source", "user")
+    .order("created_at", { ascending: true });
+
+  if (error) throw new Error(`Failed to fetch user challenges: ${error.message}`);
+  return data ?? [];
+}
+
+export async function createUserChallenge(
+  childId: string,
+  data: { title: string; ageBand: AgeBand },
+): Promise<Milestone> {
+  const supabase = await createClient();
+  const { data: milestone, error } = await supabase
+    .from("milestones")
+    .insert({
+      child_id: childId,
+      title: data.title,
+      age_band: data.ageBand,
+      is_custom: false,
+      completed: false,
+      source: "user",
+    })
+    .select()
+    .single();
+
+  if (error) throw new Error(`Failed to create user challenge: ${error.message}`);
+  return milestone;
 }
 
 export async function bulkInsertAIChecklist(
@@ -124,6 +167,7 @@ export async function bulkInsertAIChecklist(
     age_band: ageBand,
     is_custom: false,
     completed: false,
+    source: "ai",
   }));
 
   const { data, error } = await supabase

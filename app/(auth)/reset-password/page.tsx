@@ -31,7 +31,7 @@ export default function ResetPasswordPage(): React.JSX.Element {
     setLoading(false);
 
     if (authError) {
-      setError("Something went wrong. Please try again.");
+      setError("Noe gikk galt. Vennligst prøv igjen.");
       return;
     }
 
@@ -42,14 +42,14 @@ export default function ResetPasswordPage(): React.JSX.Element {
     return (
       <div className="text-center flex flex-col gap-3">
         <h2 className="font-display text-xl font-bold text-slate-800">
-          Check your email
+          Sjekk e-posten din
         </h2>
         <p className="text-sm text-slate-500">
-          We&apos;ve sent a reset link to your email address. It may take a
-          minute to arrive.
+          Vi har sendt en tilbakestillingslenke til din e-postadresse. Det kan ta
+          et minutt å komme frem.
         </p>
         <a href="/login" className="text-sm text-sage-600 hover:underline font-semibold">
-          Back to sign in
+          Tilbake til innlogging
         </a>
       </div>
     );
@@ -59,10 +59,10 @@ export default function ResetPasswordPage(): React.JSX.Element {
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       <div>
         <h2 className="font-display text-xl font-bold text-slate-800">
-          Reset your password
+          Tilbakestill passord
         </h2>
         <p className="mt-1 text-sm text-slate-500">
-          Enter your email and we&apos;ll send you a reset link.
+          Skriv inn e-posten din, så sender vi deg en tilbakestillingslenke.
         </p>
       </div>
 
@@ -76,19 +76,19 @@ export default function ResetPasswordPage(): React.JSX.Element {
         id="email"
         name="email"
         type="email"
-        label="Email address"
-        placeholder="you@example.com"
+        label="E-postadresse"
+        placeholder="deg@eksempel.no"
         autoComplete="email"
         required
       />
 
       <Button type="submit" loading={loading} className="w-full">
-        Send reset link
+        Send tilbakestillingslenke
       </Button>
 
       <p className="text-center">
         <a href="/login" className="text-sm text-sage-600 hover:underline font-semibold">
-          Back to sign in
+          Tilbake til innlogging
         </a>
       </p>
     </form>

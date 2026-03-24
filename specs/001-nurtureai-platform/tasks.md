@@ -220,6 +220,22 @@ User story implementation may now begin.
 
 ---
 
+## Phase 10: Plan Update — Milestone Split, User Challenges & Login i18n
+
+**Purpose**: Implement the three changes from the 2026-03-23 plan update.
+
+- [x] T068 [P] Translate all auth forms to Norwegian: LoginForm.tsx ("Logg inn", "E-postadresse", "Passord", etc.), RegisterForm.tsx, reset-password/page.tsx; update login/page.tsx metadata title to "Logg inn"
+- [x] T069 [P] Add source column migration: create supabase/migrations/004_milestones_source.sql (ALTER TABLE barnshli.milestones ADD COLUMN source text); update types/database.ts to add source field to milestones Row/Insert/Update
+- [x] T070 Update lib/db/milestones.ts: add createUserChallenge(childId, { title, ageBand }): Promise<Milestone> inserting with is_custom=false, source='user'; update bulkInsertAIChecklist to set source='ai'; update getAIChecklistForBand to filter source IN ('ai', null) only; add getUserChallengesForBand(childId, ageBand) returning source='user' items
+- [x] T071 Update app/api/children/[id]/milestones/route.ts: extend POST to handle type='challenge' in body — calls createUserChallenge (no date required, uses ageBand from body); existing custom path unchanged
+- [x] T072 Create app/(app)/children/[id]/milestones/layout.tsx: server component wrapping children with a sub-nav (two tabs: "AI-sjekkliste" → /milestones/ai, "Mine milepæler" → /milestones/custom) with active-state styling using usePathname; renders ChildHeader
+- [x] T073 Create app/(app)/children/[id]/milestones/ai/page.tsx: move AI checklist logic from old milestones/page.tsx here; fetch child + AI items + user challenges; pass aiItems and userChallenges to AIChecklist
+- [x] T074 Create app/(app)/children/[id]/milestones/custom/page.tsx: move custom milestone logic from old milestones/page.tsx here; fetch child + custom milestones; render MilestoneTimeline
+- [x] T075 Update app/(app)/children/[id]/milestones/page.tsx: replace content with redirect to /children/[id]/milestones/ai using Next.js redirect()
+- [x] T076 Extend components/children/AIChecklist.tsx: accept userChallenges prop (Milestone[]); add "Ekstra utfordringer" section below checklist with toggle support; add "Legg til ekstra utfordring" inline form that POSTs with type='challenge' to milestones API
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
