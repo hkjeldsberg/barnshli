@@ -56,6 +56,12 @@ dashboard in one step, independent of any tracking or AI features.
 3. **Given** an authenticated user closes and reopens the app, **When** their session
    is still valid, **Then** they are taken directly to their dashboard without
    re-authenticating.
+4. **Given** a user's session has expired (e.g. after long inactivity), **When** they
+   navigate to any protected page or their token refresh fails in the background,
+   **Then** they are redirected to `/login?returnTo=<current_path>`.
+5. **Given** a user arrives at the login page via a `returnTo` redirect, **When** they
+   successfully authenticate, **Then** they are sent to the `returnTo` path rather than
+   `/dashboard` (provided the path is a same-origin URL).
 
 ---
 
@@ -291,6 +297,17 @@ challenge that appears in the "Ekstra utfordringer" section.
 - **FR-026**: The login page and all auth pages (login, register, reset-password)
   MUST be fully translated to Norwegian (Bokmål). No English-language strings are
   permitted in the auth UI.
+
+**Session Management**
+
+- **FR-027**: When an unauthenticated request reaches a protected route (server-side),
+  the system MUST redirect to `/login?returnTo=<encoded_path>` so the intended
+  destination is preserved.
+- **FR-028**: When the Supabase refresh token expires client-side (firing a `SIGNED_OUT`
+  auth state event), the `SessionGuard` component MUST redirect the browser to
+  `/login?returnTo=<current_path>` immediately without requiring a page reload.
+- **FR-029**: After a successful login the system MUST redirect the user to the
+  `returnTo` path (if present and same-origin), otherwise to `/dashboard`.
 
 **Data & Privacy**
 

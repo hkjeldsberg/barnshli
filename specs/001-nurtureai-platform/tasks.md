@@ -236,6 +236,18 @@ User story implementation may now begin.
 
 ---
 
+## Phase 11: Session Expiry — Redirect to Login
+
+**Purpose**: Ensure expired sessions always redirect the user back to `/login` and restore their intended destination after re-authentication.
+
+- [x] T077 Update spec.md: extend US2 and add FR-027/FR-028 for session expiry redirect + returnTo behaviour
+- [x] T078 Update app/middleware.ts: add `returnTo=<pathname>` search param to the `/login` redirect for protected routes (sanitise: only if pathname starts with `/`)
+- [x] T079 Update components/forms/LoginForm.tsx: read `returnTo` from `useSearchParams()`; after successful sign-in redirect to `returnTo` if it is an internal path, otherwise `/dashboard`; wrap login/page.tsx in Suspense for the search-params read
+- [x] T080 Create components/auth/SessionGuard.tsx: client component; subscribes to `supabase.auth.onAuthStateChange`; on `SIGNED_OUT` event redirects to `/login?returnTo=<pathname>` using `useRouter` + `usePathname`
+- [x] T081 Mount SessionGuard in app/(app)/layout.tsx so it is active on every authenticated page
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

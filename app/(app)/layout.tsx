@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { listChildren } from "@/lib/db/children";
 import { SidebarNav } from "@/components/layout/SidebarNav";
+import { SessionGuard } from "@/components/auth/SessionGuard";
 
 async function signOut(): Promise<void> {
   "use server";
@@ -27,6 +28,7 @@ export default async function AppLayout({
 
   return (
     <div className="min-h-screen bg-cream flex">
+      <SessionGuard />
       {/* Sidebar — desktop (≥1024px) */}
       <aside className="hidden lg:flex flex-col fixed inset-y-0 left-0 w-64 bg-cream-50 border-r border-cream-200 shadow-clay-sm z-20 p-6 gap-6">
         {/* App name → navigates to dashboard */}

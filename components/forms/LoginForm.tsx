@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
 export function LoginForm(): React.JSX.Element {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,7 +36,10 @@ export function LoginForm(): React.JSX.Element {
       return;
     }
 
-    router.push("/dashboard");
+    const returnTo = searchParams.get("returnTo");
+    const destination =
+      returnTo && returnTo.startsWith("/") ? returnTo : "/dashboard";
+    router.push(destination);
     router.refresh();
   }
 
