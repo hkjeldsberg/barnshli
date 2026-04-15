@@ -51,7 +51,6 @@ export default async function AIChecklistPage({
 
   return (
     <div>
-      <ChildHeader child={child} />
       <div className="clay-card p-6">
         <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
           AI-sjekkliste for utvikling

@@ -61,8 +61,6 @@ export default async function GrowthPage({
 
   return (
     <div>
-      <ChildHeader child={child} />
-
       <div className="clay-card mb-6 p-6">
         <LazyGrowthChart
           childData={records}

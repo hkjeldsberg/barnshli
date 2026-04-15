@@ -216,7 +216,7 @@ export function GrowthChart({
               name={childName}
               stroke="#C9908C"
               strokeWidth={2.5}
-              dot={{ fill: "#C9908C", r: 5 }}
+              dot={{ fill: "#C9908C", r: 2 }}
               activeDot={{ r: 7 }}
               connectNulls
             />

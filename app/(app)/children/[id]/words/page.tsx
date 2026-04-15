@@ -33,7 +33,6 @@ export default async function WordsPage({ params }: Props): Promise<React.JSX.El
 
   return (
     <div>
-      <ChildHeader child={child} />
 
       <div className="clay-card p-6">
         <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-4">Ordbok</h2>

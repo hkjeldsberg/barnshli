@@ -3,6 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { listChildren } from "@/lib/db/children";
 import { SidebarNav } from "@/components/layout/SidebarNav";
+import { MobileSidebarDrawer } from "@/components/layout/MobileSidebarDrawer";
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { SessionGuard } from "@/components/auth/SessionGuard";
 
 async function signOut(): Promise<void> {
@@ -52,43 +54,16 @@ export default async function AppLayout({
         </form>
       </aside>
 
+      {/* Mobile sidebar drawer — hidden on desktop */}
+      <MobileSidebarDrawer childrenList={childrenList} signOut={signOut} />
+
       {/* Main content */}
       <main className="flex-1 lg:ml-64 pb-20 lg:pb-0">
-        <div className="max-w-4xl mx-auto px-4 py-8">{children}</div>
+        <div className="max-w-4xl mx-auto px-4 pt-16 pb-8 lg:py-8">{children}</div>
       </main>
 
       {/* Bottom nav — mobile */}
-      <nav
-        className="lg:hidden fixed bottom-0 inset-x-0 bg-cream-50 border-t border-cream-200 flex items-center justify-around px-2 py-2 z-20"
-        aria-label="Mobile navigation"
-      >
-        <Link
-          href="/dashboard"
-          className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center text-xs text-slate-600 hover:text-slate-900"
-        >
-          <span className="text-xl" aria-hidden="true">🏠</span>
-          <span>Hjem</span>
-        </Link>
-        {childrenList.slice(0, 4).map((child) => (
-          <Link
-            key={child.id}
-            href={`/children/${child.id}`}
-            className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center text-xs text-slate-600 hover:text-slate-900"
-          >
-            <span className="text-xl" aria-hidden="true">
-              {child.sex === "female" ? "👧" : "👦"}
-            </span>
-            <span className="truncate max-w-[60px]">{child.name}</span>
-          </Link>
-        ))}
-        <Link
-          href="/children/new"
-          className="flex flex-col items-center gap-1 min-w-[44px] min-h-[44px] justify-center text-xs text-sage-600"
-        >
-          <span className="text-xl" aria-hidden="true">+</span>
-          <span>Legg til</span>
-        </Link>
-      </nav>
+      <MobileBottomNav />
     </div>
   );
 }

@@ -32,7 +32,6 @@ export default async function ChildDetailPage({
 
   return (
     <div>
-      <ChildHeader child={child} />
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { href: `/children/${id}/growth`, label: "Vekst", icon: "📈", desc: "Følg vekt og høyde" },

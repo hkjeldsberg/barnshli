@@ -13,7 +13,7 @@ export default function AuthLayout({
           Barnshli
         </h1>
         <p className="mt-1 text-sm text-slate-500 font-body">
-          Your child&apos;s growth story, beautifully kept.
+        Alt barnet ditt opplever – samlet på ett sted. 
         </p>
       </div>
 
